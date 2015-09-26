@@ -1,0 +1,45 @@
+.background-grey {
+    background-color: #ECF0F5;
+}
+
+.info-box-text {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.info-box-number {
+    margin-top: 4px;
+    font-weight: normal;
+}
+
+.info-box-number {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.info-box-number-extra {
+    font-size: 0.7em;
+}
+
+.box.box-freifunk-default {
+    border-top-color: #D60052 !important;
+    border: 1px solid #D60052;
+}
+
+.box.box-solid.box-freifunk-default > .box-header {
+    background: #D60052 none repeat scroll 0% 0%;
+    color: #FFFFFF;
+}
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    background-color: #D60052;
+    border-color: #D60052;
+}
+
+.content-wrapper, .right-side, .main-footer {
+    text-align: center;
+    margin-left: 0px;
+    margin-top: -15px;
+    font-weight: bold;
+}
