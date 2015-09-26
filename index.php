@@ -41,10 +41,10 @@
     <body class="background-grey"> 
         <section class="content">
             <?php
-                include 'tables/nodes.php'
+                include 'pages/dashboard.php'
             ?>
         </section>
-        <footer class="main-footer">
+        <footer>
             <?php echo "Stand: " . $nodeManager->getTimestamp(); ?>
         </footer>
     </body>
