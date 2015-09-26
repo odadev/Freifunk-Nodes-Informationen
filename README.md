@@ -1,6 +1,12 @@
-# Freifunk Moers Router Auslastung und weitere Informationen
-Dieses Projekt soll eine Lösung zur webbasierten Darstellung der Routerauslastung von Freifunk Moers sein.
-Außerdem sollen weitere Informationen zu den Routern angezeigt werden (nach Wunsch).
+# Freifunk Nodes Informationen
+Dieses Projekt soll eine Lösung zur webbasierten Darstellung der nodes.json sein.
+Dies soll mit sämtlichen nodes.json funktionieren, sodass diese Anwendung von sämtlichen Communities verwendet werden kann.
+
+Außerdem soll in Zukunft die Ermittlung von weiteren Informationen möglich sein.
+* Routerauslastung
+* Welcher Router hat einen eigenen uplink?
+* Router-Abhängikeiten (Wer masht mit wem und wer ist von wem abhänhängig [eigener Uplink oder nicht])
+* ...
 
 ## Aktueller Stand
 * **Bisher ist es nur eine bessere Darstellung der nodes.json**
@@ -17,3 +23,6 @@ Außerdem sollen weitere Informationen zu den Routern angezeigt werden (nach Wun
 * Nur mit den Node-Objekten arbeitet statt einzelne Informationen eines Nodes zwischenzuspeichern (siehe Datei tables/nodes.php)
 * Eine bessere Struktur ausdenken (Order und Dateien)
 * uvm.
+
+## Links
+* Link zum Projekt: [Freifunk Nodes Informationen](http://timojeske.de/odadev/FreifunkNodesInformationen/)
