@@ -37,9 +37,13 @@
     border-color: #D60052;
 }
 
-.content-wrapper, .right-side, .main-footer {
+footer {
     text-align: center;
     margin-left: 0px;
     margin-top: -15px;
     font-weight: bold;
+}
+
+.toggle-columns {
+    margin: 0 0 20px 0;
 }
