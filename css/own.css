@@ -12,7 +12,7 @@
     font-weight: normal;
 }
 
-.info-box-number {
+.text-overflow-ellipsis {
     white-space: nowrap; 
     overflow: hidden;
     text-overflow: ellipsis; 
@@ -39,11 +39,32 @@
 
 footer {
     text-align: center;
-    margin-left: 0px;
-    margin-top: -15px;
+    margin: 0px 0px 40px 0;
     font-weight: bold;
 }
 
 .toggle-columns {
+    width: 100%;
     margin: 0 0 20px 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.icon-online,
+.icon-offline {
+    text-shadow: 0px 0px 1px rgba(0, 0, 0, 1);
+}
+
+.icon-online {
+    color: #5CFC00;
+}
+
+.icon-offline {
+    color: #F20038;
+}
+
+.float-right {
+    float: right;
 }
