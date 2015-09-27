@@ -90,6 +90,14 @@ class NodeManager {
             if(isset($nodes[$zaehler]["firstseen"])) {
                 $nodeObject->setFirstSeen(date("d.m.Y H:i", strtotime($nodes[$zaehler]["firstseen"])+(60*60*2)));
             }
+            if(isset($nodes[$zaehler]["flags"]["online"])) {
+                if($nodes[$zaehler]["flags"]["online"] == "true") {
+                    $nodeObject->setOnline(true);
+                } else {
+                    $nodeObject->setOnline(false);
+                }
+                
+            }
 
             // Node zum Array aller Nodes hinzufügen
             $nodes2[] = $nodeObject;
