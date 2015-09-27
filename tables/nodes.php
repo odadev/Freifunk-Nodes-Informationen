@@ -5,33 +5,73 @@
                 <i class="fa fa-list-ul"></i><h3 class="box-title">Nodes</h3>
             </div>
             <div class="box-body">
-                <div class="toggle-columns">
+                <div class="toggle-columns text-center">
                     Spalte ein-/ausblenden: 
+                    <br />
                     <a class="toggle-vis" data-column="0">Hostname</a> - 
-                    <a class="toggle-vis" data-column="1">Uptime</a> - 
-                    <a class="toggle-vis" data-column="2">Load AVG</a> - 
-                    <a class="toggle-vis" data-column="3">Speicherauslastung</a> - 
-                    <a class="toggle-vis" data-column="4">Clients</a>
+                    <a class="toggle-vis" data-column="1">On</a> - 
+                    <a class="toggle-vis" data-column="2">Clients</a> - 
+                    <a class="toggle-vis" data-column="3">Uptime</a> - 
+                    <a class="toggle-vis" data-column="4">Modell</a> - 
+                    <a class="toggle-vis" data-column="5">IPv6</a> - 
+                    <a class="toggle-vis" data-column="6">Speicherauslastung</a> - 
+                    <a class="toggle-vis" data-column="7">Load AVG</a>
                 </div>
                 <table id="nodesTable" class="display responsive nowrap" width="100%">
                     <thead>
                         <tr>
-                            <th>Hostname</th>
-                            <th>Uptime (Tage)</th>
-                            <th>Load AVG</th>
-                            <th>Speicherauslastung</th>
-                            <th>Clients</th>
+                            <th class="text-center">Hostname</th>
+                            <th class="text-center">On</th>
+                            <th class="text-center">Clients</th>
+                            <th class="text-center">Uptime (Tage)</th>
+                            <th class="text-center">Modell</th>
+                            <th class="text-center">IPv6</th>
+                            <th class="text-center">Speicherauslastung</th>
+                            <th class="text-center">Load AVG</th>
                         </tr>
-                    </thead>						
+                    </thead>
+                    
+                    <tfoot>
+                        <tr>
+                            <th class="text-center">Hostname</th>
+                            <th class="text-center">On</th>
+                            <th class="text-center">Clients</th>
+                            <th class="text-center">Uptime (Tage)</th>
+                            <th class="text-center">Modell</th>
+                            <th class="text-center">IPv6</th>
+                            <th class="text-center">Speicherauslastung</th>
+                            <th class="text-center">Load AVG</th>
+                        </tr>
+                    </tfoot>
+                    
                     <tbody>          
                         <?php
                             foreach($nodes as $node) {
                                 echo "<tr>";
                                     echo "<td>" . $node->getHostname() . "</td>";
-                                    echo "<td>" . number_format($node->getUptime() / 60 / 60 / 24, 0) . "</td>";
-                                    echo "<td>" . $node->getLoadavg() . "</td>";
-                                    echo "<td>" . number_format($node->getMemoryUsage(), 3) . "</td>";
-                                    echo "<td>" . $node->getClients() . "</td>";
+                                    echo "<td class='text-center'>";
+                                        echo "<i class='fa fa-circle icon-";
+                                        if($node->getOnline()) {
+                                            echo "online' title='Online'></i>";
+                                        } else {
+                                            echo "offline' title='Offline'></i>";
+                                        }
+                                    echo "</td>";
+                                    echo "<td class='text-center'>" . $node->getClients() . "</td>";
+                                    echo "<td class='text-center'>" . number_format($node->getUptime() / 60 / 60 / 24, 0) . "</td>";
+                                    echo "<td>" . $node->getModel() . "</td>";
+                                    echo "<td class='text-center'>";
+                                        // Nur die längere IPv6 soll angezeigt werden
+                                        $ipv6 = "";
+                                        foreach ($node->getAddresses() as $address) {
+                                            if(strlen($ipv6) < strlen($address)) {
+                                                $ipv6 = $address;
+                                            }
+                                        }
+                                        echo "<a target='_blank' href='http://[" . $ipv6 . "]'>" . $ipv6 . "</a><br />";;
+                                    echo "</td>";
+                                    echo "<td class='text-center'>" . number_format($node->getMemoryUsage(), 3) . "</td>";
+                                    echo "<td class='text-center'>" . $node->getLoadavg() . "</td>";
                                 echo "</tr>";
                             }
                         ?>
@@ -44,6 +84,12 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        
+        $('#nodesTable tfoot th').each( function () {
+            var title = $('#nodesTable thead th').eq( $(this).index() ).text();
+            $(this).html( '<input type="text" placeholder="'+title+'" style="width: 100%" class="text-center text-overflow-ellipsis" />' );
+        } );
+    
         var nodesTable = $('#nodesTable').DataTable({
             "bPaginate": true,
             "bLengthChange": true,
@@ -53,41 +99,51 @@
             "bAutoWidth": true,
             "stateSave": false,
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Alle"]],
-            "order": [[ 4, "desc" ]],
+            "order": [[ 2, "desc" ]],
             "responsive": true,
-            "language":
-                {
-                    "sEmptyTable": "Keine Daten in der Tabelle vorhanden",
-                    "sInfo": "_START_ bis _END_ von _TOTAL_ Einträgen",
-                    "sInfoEmpty": "0 bis 0 von 0 Einträgen",
-                    "sInfoFiltered": "(gefiltert von _MAX_ Einträgen)",
-                    "sInfoPostFix": "",
-                    "sInfoThousands": ".",
-                    "sLengthMenu": "_MENU_ Einträge anzeigen",
-                    "sLoadingRecords": "Wird geladen...",
-                    "sProcessing": "Bitte warten...",
-                    "sSearch": "Suchen",
-                    "sZeroRecords": "Keine Einträge vorhanden.",
-                    "oPaginate": {
-                        "sFirst": "Erste",
-                        "sPrevious": "Zurück",
-                        "sNext": "Nächste",
-                        "sLast": "Letzte"
-                    },
-                    "oAria": {
-                        "sSortAscending": ": aktivieren, um Spalte aufsteigend zu sortieren",
-                        "sSortDescending": ": aktivieren, um Spalte absteigend zu sortieren"
-                    }
+            columnDefs: [
+                { type: 'numeric-comma-pre', targets: 1 }
+            ],
+            "language": {
+                "sEmptyTable": "Keine Daten in der Tabelle vorhanden",
+                "sInfo": "_START_ bis _END_ von _TOTAL_ Einträgen",
+                "sInfoEmpty": "0 bis 0 von 0 Einträgen",
+                "sInfoFiltered": "(gefiltert von _MAX_ Einträgen)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ Einträge anzeigen",
+                "sLoadingRecords": "Wird geladen...",
+                "sProcessing": "Bitte warten...",
+                "sSearch": "Suchen",
+                "sZeroRecords": "Keine Einträge vorhanden.",
+                "oPaginate": {
+                    "sFirst": "Erste",
+                    "sPrevious": "Zurück",
+                    "sNext": "Nächste",
+                    "sLast": "Letzte"
+                },
+                "oAria": {
+                    "sSortAscending": ": aktivieren, um Spalte aufsteigend zu sortieren",
+                    "sSortDescending": ": aktivieren, um Spalte absteigend zu sortieren"
                 }
+            }
         });
+        
+        nodesTable.columns().every( function () {
+            var that = this;
+
+            $( 'input', this.footer() ).on( 'keyup change', function () {
+                if ( that.search() !== this.value ) {
+                    that
+                        .search( this.value )
+                        .draw();
+                }
+            } );
+        } );
         
         $('a.toggle-vis').on( 'click', function (e) {
             e.preventDefault();
-
-            // Get the column API object
             var column = nodesTable.column( $(this).attr('data-column') );
-
-            // Toggle the visibility
             column.visible( ! column.visible() );
         } );
     });
