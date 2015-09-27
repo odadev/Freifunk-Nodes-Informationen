@@ -24,7 +24,7 @@
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         
         <link rel="stylesheet" href="css/bootstrap.min.css" />
-        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="css/font-awesome.min.css" />
         <link rel="stylesheet" href="css/AdminLTE.min.css" />
         <link rel="stylesheet" href="css/skins/skin-blue.min.css" />
         <link rel="stylesheet" href="css/dataTables.min.css" />
@@ -35,6 +35,7 @@
         <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js/dataTables.bootstrap.min.js"></script>
         <script type="text/javascript" src="js/dataTables.responsive.min.js"></script>
+        <script type="text/javascript" src="js/dataTables.numericComma.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/app.min.js"></script>
     </head>
