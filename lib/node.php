@@ -31,7 +31,7 @@ class Node {
     private $hostname;
     
     /**
-     * 
+     * Model des Nodes
      */
     private $model;
     
@@ -80,6 +80,11 @@ class Node {
      * Wann ist der Router online gegangen?
      */
     private $firstSeen;
+    
+    /**
+     * Online oder nicht?
+     */
+    private $online;
     
     public function __construct() {
 
@@ -187,6 +192,14 @@ class Node {
 
     public function setMemoryUsage($memoryUsage) {
         $this->memoryUsage = $memoryUsage;
+    }
+
+    public function getOnline() {
+        return $this->online;
+    }
+
+    public function setOnline($online) {
+        $this->online = $online;
     }
 
 }
