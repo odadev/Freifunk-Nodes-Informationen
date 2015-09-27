@@ -5,6 +5,7 @@
     $newestNodeDate = "";
     $longestUptime = 0;
     $longestUptimeHostname = 0;
+    $onlineNodes = 0;
     
     $first = true;
     foreach($nodes as $node) {
@@ -30,6 +31,9 @@
                 $longestUptimeHostname = $node->getHostname();
             }
         }
+        
+        // Wenn ein Node online, dann immer einen hochzählen
+        $onlineNodes += ($node->getOnline()) ? 1 : 0;
     }
 ?>
 
@@ -40,7 +44,11 @@
             <span class="info-box-icon bg-fuchsia-active"><i class="fa fa-globe"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Anzahl Nodes</span>
-                <span class="info-box-number"><?php echo sizeof($nodes); ?></span>
+                <span class="info-box-number text-overflow-ellipsis">
+                    <?php echo sizeof($nodes); ?>
+                    <br />
+                    <span class="info-box-number-extra"><?php echo "Online: " . $onlineNodes . " / Offline: " . (sizeof($nodes) - $onlineNodes) . "</span>"; ?></span>
+                </span>
             </div>
         </div>
     </div>
@@ -51,7 +59,7 @@
             <span class="info-box-icon bg-purple"><i class="fa fa-users"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Clients online</span>
-                <span class="info-box-number"><?php echo $numberOfClients; ?></span>
+                <span class="info-box-number text-overflow-ellipsis"><?php echo $numberOfClients; ?></span>
             </div>
         </div>
     </div>
@@ -62,7 +70,7 @@
             <span class="info-box-icon bg-green"><i class="fa fa-plus"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Neuster Node</span>
-                <span class="info-box-number"><?php echo $newestNode; ?><br /><span class="info-box-number-extra"><?php echo $newestNodeDate; ?></span></span>
+                <span class="info-box-number text-overflow-ellipsis"><?php echo $newestNode; ?><br /><span class="info-box-number-extra"><?php echo $newestNodeDate; ?></span></span>
             </div>
         </div>
     </div>
@@ -73,7 +81,7 @@
             <span class="info-box-icon bg-orange"><i class="fa fa-arrow-up"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Am längsten online</span>
-                <span class="info-box-number"><?php echo $longestUptimeHostname; ?><br /><span class="info-box-number-extra"><?php echo number_format($longestUptime / 60 / 60 / 24, 0); ?> Tage</span></span>
+                <span class="info-box-number text-overflow-ellipsis"><?php echo $longestUptimeHostname; ?><br /><span class="info-box-number-extra"><?php echo number_format($longestUptime / 60 / 60 / 24, 0); ?> Tage</span></span>
             </div>
         </div>
     </div>
