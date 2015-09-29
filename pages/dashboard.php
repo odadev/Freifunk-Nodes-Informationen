@@ -70,7 +70,7 @@
             <span class="info-box-icon bg-green"><i class="fa fa-plus"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Neuster Node</span>
-                <span class="info-box-number text-overflow-ellipsis"><?php echo $newestNode; ?><br /><span class="info-box-number-extra"><?php echo $newestNodeDate; ?></span></span>
+                <span class="info-box-number text-overflow-ellipsis"><span class="search-text" onclick="search('<?php echo $newestNode; ?>')"><?php echo $newestNode; ?></span><br /><span class="info-box-number-extra"><?php echo $newestNodeDate; ?></span></span>
             </div>
         </div>
     </div>
@@ -81,7 +81,7 @@
             <span class="info-box-icon bg-orange"><i class="fa fa-arrow-up"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Am längsten online</span>
-                <span class="info-box-number text-overflow-ellipsis"><?php echo $longestUptimeHostname; ?><br /><span class="info-box-number-extra"><?php echo number_format($longestUptime / 60 / 60 / 24, 0); ?> Tage</span></span>
+                <span class="info-box-number text-overflow-ellipsis"><span class="search-text" onclick="search('<?php echo $longestUptimeHostname; ?>')"><?php echo $longestUptimeHostname; ?></span><br /><span class="info-box-number-extra"><?php echo number_format($longestUptime / 60 / 60 / 24, 0); ?> Tage</span></span>
             </div>
         </div>
     </div>
