@@ -5,6 +5,7 @@
                 <i class="fa fa-list-ul"></i><h3 class="box-title">Nodes</h3>
             </div>
             <div class="box-body">
+                <!-- COntainer zum Ein- und Ausblenden der Spalten -->
                 <div class="toggle-columns text-center">
                     Spalte ein-/ausblenden: 
                     <br />
@@ -17,6 +18,14 @@
                     <a class="toggle-vis" data-column="6">Speicherauslastung</a> - 
                     <a class="toggle-vis" data-column="7">Load AVG</a>
                 </div>
+                
+                <!-- Container für die Suche -->
+                <div class="custom-search-container">
+                    <label for="customSearch">Suche: </label><input type="text" id="customSearch" />
+                    <button onclick="resetSearch()">X</button>
+                </div>
+                
+                <!-- Tabelle -->
                 <table id="nodesTable" class="display responsive nowrap" width="100%">
                     <thead>
                         <tr>
@@ -82,7 +91,8 @@
     </div>
 </div>
 
-<script type="text/javascript">
+<script type="text/javascript">   
+    var nodesTable;
     $(document).ready(function () {
         
         $('#nodesTable tfoot th').each( function () {
@@ -90,7 +100,7 @@
             $(this).html( '<input type="text" placeholder="'+title+'" style="width: 100%" class="text-center text-overflow-ellipsis" />' );
         } );
     
-        var nodesTable = $('#nodesTable').DataTable({
+        nodesTable = $('#nodesTable').DataTable({
             "bPaginate": true,
             "bLengthChange": true,
             "bFilter": true,
@@ -104,6 +114,7 @@
             columnDefs: [
                 { type: 'numeric-comma-pre', targets: 1 }
             ],
+            "dom": '<"top"lit><"clear"><"bottom"p>',
             "language": {
                 "sEmptyTable": "Keine Daten in der Tabelle vorhanden",
                 "sInfo": "_START_ bis _END_ von _TOTAL_ Einträgen",
@@ -147,4 +158,21 @@
             column.visible( ! column.visible() );
         } );
     });
+    
+    //  Damit die Suche über das eigene Feld funktioniert
+    $('#customSearch').keyup(function() {
+        nodesTable.columns(0).search($(this).val()).draw();
+    });
+    
+    function resetSearch() {
+        $("#customSearch").val('');
+        search('');
+    }
+    
+    function search(value) {
+        if(value !=  '') {
+            resetSearch();
+        }
+        nodesTable.columns(0).search(value).draw();
+    }
 </script>
