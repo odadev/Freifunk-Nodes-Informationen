@@ -1,4 +1,4 @@
-<?php if(!'__IN_SITE__') { die(); }
+<?php if (!defined('__IN_SITE__')) { echo "Zugriff verweigert!"; die(); } 
 
 /**
  * Repräsentiert einen Freifunk-Node
@@ -85,6 +85,11 @@ class Node {
      * Online oder nicht?
      */
     private $online;
+    
+    /**
+     * AutoUpdater eingeschaltet oder nicht?
+     */
+    private $autoUpdate;
     
     public function __construct() {
 
@@ -202,4 +207,11 @@ class Node {
         $this->online = $online;
     }
 
+    public function getAutoUpdate() {
+        return $this->autoUpdate;
+    }
+
+    public function setAutoUpdate($autoUpdate) {
+        $this->autoUpdate = $autoUpdate;
+    }
 }

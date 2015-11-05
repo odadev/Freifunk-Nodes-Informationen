@@ -1,4 +1,4 @@
-<?php    
+<?php if (!defined('__IN_SITE__')) { echo "Zugriff verweigert!"; die(); }    
     // Abfrage wie viele Clients zur Zeit online sind und welcher der neuste Node ist
     $numberOfClients = 0;
     $newestNode = "";

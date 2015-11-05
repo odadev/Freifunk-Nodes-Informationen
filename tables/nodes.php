@@ -1,3 +1,4 @@
+<?php if (!defined('__IN_SITE__')) { echo "Zugriff verweigert!"; die(); } ?>
 <div class="row">
     <div class="col-xs-12">
         <div id="nodes-table" class="box box-solid box-freifunk-default">
@@ -15,8 +16,9 @@
                     <a class="toggle-vis" data-column="3">Uptime</a> - 
                     <a class="toggle-vis" data-column="4">Modell</a> - 
                     <a class="toggle-vis" data-column="5">IPv6</a> - 
-                    <a class="toggle-vis" data-column="6">Speicherauslastung</a> - 
-                    <a class="toggle-vis" data-column="7">Load AVG</a>
+                    <a class="toggle-vis" data-column="6">Node auf Map</a> - 
+                    <a class="toggle-vis" data-column="7">Speicherauslastung</a> - 
+                    <a class="toggle-vis" data-column="8">Load AVG</a>
                 </div>
                 
                 <!-- Container für die Suche -->
@@ -30,11 +32,12 @@
                     <thead>
                         <tr>
                             <th class="text-center">Hostname</th>
-                            <th class="text-center">On</th>
+                            <th class="text-center"><i class="fa fa-power-off"></i></th>
                             <th class="text-center">Clients</th>
-                            <th class="text-center">Uptime (Tage)</th>
+                            <th class="text-center">Uptime</span></th>
                             <th class="text-center">Modell</th>
-                            <th class="text-center">IPv6</th>
+                            <th class="text-center">IPv6-Adresse</th>
+                            <th class="text-center">Node auf Map</th>
                             <th class="text-center">Speicherauslastung</th>
                             <th class="text-center">Load AVG</th>
                         </tr>
@@ -43,11 +46,12 @@
                     <tfoot>
                         <tr>
                             <th class="text-center">Hostname</th>
-                            <th class="text-center">On</th>
+                            <th class="text-center"><i class="fa fa-power-off"></i></th>
                             <th class="text-center">Clients</th>
                             <th class="text-center">Uptime (Tage)</th>
                             <th class="text-center">Modell</th>
                             <th class="text-center">IPv6</th>
+                            <th class="text-center">Node auf Map</th>
                             <th class="text-center">Speicherauslastung</th>
                             <th class="text-center">Load AVG</th>
                         </tr>
@@ -57,7 +61,7 @@
                         <?php
                             foreach($nodes as $node) {
                                 echo "<tr>";
-                                    echo "<td>" . $node->getHostname() . "</td>";
+                                    echo "<td><a target='_blank' href='node_statistics.php?nodeID=" . $node->getNodeID() . "'>" . $node->getHostname() . "</a></td>";
                                     echo "<td class='text-center'>";
                                         echo "<i class='fa fa-circle icon-";
                                         if($node->getOnline()) {
@@ -79,6 +83,7 @@
                                         }
                                         echo "<a target='_blank' href='http://[" . $ipv6 . "]'>" . $ipv6 . "</a><br />";;
                                     echo "</td>";
+                                    echo "<td class='text-center'><a target='_blank' href='http://map.freifunk-moers.de/#!n:" . $node->getNodeID() . "'>" . $node->getNodeID() . "</a></td>";
                                     echo "<td class='text-center'>" . number_format($node->getMemoryUsage(), 3) . "</td>";
                                     echo "<td class='text-center'>" . $node->getLoadavg() . "</td>";
                                 echo "</tr>";
@@ -170,9 +175,16 @@
     }
     
     function search(value) {
+        //  Falls value leer sein sollte, soll die Suche erst zurückgesetzt
+        // und das ausgeführt werden.
         if(value !=  '') {
             resetSearch();
         }
+        
+        //  Den gesuchten Text zum Suchfeld hinzufügen, da bessere Usabillity
+        $("#customSearch").val(value);
+        
+        //  Die tatsächliche Suche durchführen
         nodesTable.columns(0).search(value).draw();
     }
 </script>

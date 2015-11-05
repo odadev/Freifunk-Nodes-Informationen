@@ -1,4 +1,4 @@
-<?php if(!'__IN_SITE__') { die(); }
+<?php if (!defined('__IN_SITE__')) { echo "Zugriff verweigert!"; die(); } 
 
 // Später aus der Datenbank holen
 define('__JSON_NODES_PATH__', 'http://api.freifunk-niersufer.de/mo/nodes.json');

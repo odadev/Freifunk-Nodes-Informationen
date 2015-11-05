@@ -1,4 +1,4 @@
-<?php
+<?php if (!defined('__IN_SITE__')) { echo "Zugriff verweigert!"; die(); } 
 
 /**
  * Klasse zur Verwaltung der Nodes
@@ -41,7 +41,7 @@ class NodeManager {
         $this->jsonData = json_decode($seite, true);
     }
     
-    private function createNewNodes() {        
+    private function createNewNodes() {      //  Nochmal prüfen, weil $node nicht genutzt 
         $nodes = array();
         $nodes2 = array();
         $zaehler = 0;
@@ -96,7 +96,6 @@ class NodeManager {
                 } else {
                     $nodeObject->setOnline(false);
                 }
-                
             }
 
             // Node zum Array aller Nodes hinzufügen
@@ -118,3 +117,4 @@ class NodeManager {
         return $this->timestamp;
     }
 }
+

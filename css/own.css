@@ -23,18 +23,18 @@
 }
 
 .box.box-freifunk-default {
-    border-top-color: #D60052 !important;
-    border: 1px solid #D60052;
+    border-top-color: #dc0067 !important;
+    border: 1px solid #dc0067;
 }
 
 .box.box-solid.box-freifunk-default > .box-header {
-    background: #D60052 none repeat scroll 0% 0%;
+    background: #dc0067 none repeat scroll 0% 0%;
     color: #FFFFFF;
 }
 
 .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
-    background-color: #D60052;
-    border-color: #D60052;
+    background-color: #dc0067;
+    border-color: #dc0067;
 }
 
 footer {
@@ -67,4 +67,17 @@ footer {
 
 .float-right {
     float: right;
+}
+
+.search-text {
+    color: #63002E;
+}
+
+.custom-search-container {
+    float: right; 
+    margin-bottom: 5px;
+}
+
+.custom-search-container > label {
+    margin-right: 10px;
 }
