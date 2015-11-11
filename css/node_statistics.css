@@ -1,7 +1,85 @@
 .c3-grid line {
-    stroke: #E5E5E5;
+    stroke: #C9C9C9;
 }
 
 h1 {
     text-align: center;
+}
+
+body {
+    background-color: #F7F7F7;
+}
+
+.chart-info {
+    
+}
+
+.chart-info-box {
+    max-width: 650px;
+    margin: 20px auto;
+    clear: both;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.table {
+    display: table;
+}
+
+.table-row {
+    display: table-row;
+}
+
+.table-cell {
+    display: table-cell;
+}
+
+.text-strong {
+    font-weight: bold;
+}
+#chart {
+    width: 99%; 
+    height: 75vh;
+}
+
+@media screen and (max-width: 690px) {
+    #chart {
+        height: 100vh;
+        width: 96%;
+    }
+    
+    .table-cell.text-strong {
+        width: 200px;
+    }   
+    
+    .chart-info-box {
+        margin: 20px 3%;
+    }
+}
+@media screen and (max-width: 630px) {
+    .table-cell.text-strong {
+        width: 70%;
+    }   
+    
+    .left {
+        float: none;
+    }
+    
+    .right {
+        float: none;
+    }
+    
+    .chart-info {
+        margin: 0 auto;
+    }
+    
+    .chart-info-box {
+        margin: 20px 5%;
+    }
 }
