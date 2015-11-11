@@ -14,7 +14,7 @@ Außerdem soll in Zukunft die Ermittlung von weiteren Informationen möglich sei
 
 ## Aktueller Stand
 * **Bisher ist es nur eine bessere Darstellung der nodes.json**
-* **09.11.2015: Nun kann man auf den Hostname in der Tabelle klicken und bekommt eine Langzeitstatistik der Clients angezeigt (Mittelwert pro Stunde, obwohl mehr Daten in DB)
+* **09.11.2015: Nun kann man auf den Hostname in der Tabelle klicken und bekommt eine Langzeitstatistik der Clients angezeigt (Mittelwert pro Stunde, obwohl mehr Daten in DB)**
 * Nodes werden aus nodes.json ausgelesen
 * Nodes werden als Objekte in PHP erzeugt
 * Nodes werden in einere Tabelle aufgelistet
