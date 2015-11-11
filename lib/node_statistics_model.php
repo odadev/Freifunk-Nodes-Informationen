@@ -11,13 +11,25 @@ class Node_Statistics_Model {
     private static $query_getNodeClientinformation = "
             SELECT 
                     ROUND(AVG(CLIENTS)) AS CLIENTS, 
+                    MAX(CLIENTS) AS CLIENTS_MAX,
+                    MIN(CLIENTS) AS CLIENTS_MIN,
                     CONCAT(
                         YEAR(TIMESTAMP), 
                         MONTH(TIMESTAMP), 
                         DAY(TIMESTAMP), 
-                        HOUR(TIMESTAMP)
+                        HOUR(DATE_ADD(TIMESTAMP, INTERVAL 1 HOUR))
                     ),  
-                    TIMESTAMP, 
+                    CONCAT(
+                        DAY(TIMESTAMP), 
+                        '.',
+                        MONTH(TIMESTAMP), 
+                        '.',
+                        YEAR(TIMESTAMP), 
+                        ' ',     
+                        HOUR(TIMESTAMP),
+                        ' - ',
+                        HOUR(DATE_ADD(TIMESTAMP, INTERVAL 1 HOUR))
+                    ) as TIMESTAMP_HOUR,
                     STATE 
             FROM 
                     node_clients_live 
