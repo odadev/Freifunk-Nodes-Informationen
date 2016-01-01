@@ -32,7 +32,7 @@ class NodeManager {
     
     private function createTimestamp() {
         // Zeigt an, von wann die Daten, die angezeigt werden, sind.
-        $this->timestamp = date("d.m.Y H:i", strtotime($this->jsonData["timestamp"])+(60*60*2));
+        $this->timestamp = date("d.m.Y H:i", strtotime($this->jsonData["timestamp"])+(60*60*1));
     }
     
     private function getNodesFromServer() {
