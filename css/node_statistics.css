@@ -45,7 +45,8 @@ body {
 }
 #chart {
     width: 99%; 
-    height: 75vh;
+    height: 65vh;
+    margin-bottom: 100px;
 }
 
 @media screen and (max-width: 690px) {

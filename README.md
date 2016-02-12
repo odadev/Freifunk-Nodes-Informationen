@@ -14,6 +14,10 @@ Außerdem soll in Zukunft die Ermittlung von weiteren Informationen möglich sei
 
 ## Aktueller Stand
 * **Bisher ist es nur eine bessere Darstellung der nodes.json**
+* **12.02.2016** Menü eingebaut, die Struktur verbessert und unsinnige Dateien gelöscht
+* **12.02.2016** Neue Statistik: Anzeige aller Nodes, die länger als 3 Tage offline sind
+* **12.02.2016** Clientstatistik angepasst: wenn mehr als 3 Monate an Daten geladen werden soll, dann hole einen tagesbasierten- und keinen stundenbasierten Wert mehr
+* **12.02.2016** noch weitere Kleinigkeiten: Sorry, ich hätte eher commiten sollen und nicht alles zusammen...
 * **09.11.2015: Nun kann man auf den Hostname in der Tabelle klicken und bekommt eine Langzeitstatistik der Clients angezeigt (Mittelwert pro Stunde, obwohl mehr Daten in DB)**
 * Nodes werden aus nodes.json ausgelesen
 * Nodes werden als Objekte in PHP erzeugt
@@ -36,11 +40,13 @@ Außerdem soll in Zukunft die Ermittlung von weiteren Informationen möglich sei
 * Weitere Informationen zu den Nodes in die Node-Objekte speichern
 * Nur mit den Node-Objekten arbeitet statt einzelne Informationen eines Nodes zwischenzuspeichern (siehe Datei tables/nodes.php)
 * Eine bessere Struktur ausdenken (Order und Dateien)
+ * **12.02.2016** etwas verbessert, aber MVC wäre wünschenswert
 * Einzelne Spalten durchsuchen: Bei einigen entfernen und bei anderen (Beispiel: Modell) eine Selectbox einbinden statt ein Textfeld
 * Langzeit-Clientstatistik erweitern
  * weitere Informationen wie beispielsweise die Trafficauslastung als Diagramm darstellen
  * Donut-Chart(s)(?!) für die prozentuale online- und offline-Zeit gesamt und letzte 24 Stunden erstellen
  * Online- und offline-Status im Diagramm anzeigen. Problem: Im Moment sind es gemittelte Werte pro Stunde - das sollte natürlich nicht mit dem Onlinestatus geschehen!!! 
+  * eventuell Prozent online / offline für den Wert der Stunde (bzw. Tag)
  * ...
 * uvm.
 

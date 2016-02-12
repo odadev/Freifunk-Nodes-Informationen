@@ -37,12 +37,6 @@
     border-color: #dc0067;
 }
 
-footer {
-    text-align: center;
-    margin: 0px 0px 40px 0;
-    font-weight: bold;
-}
-
 .toggle-columns {
     width: 100%;
     margin: 0 0 20px 0;
@@ -69,6 +63,10 @@ footer {
     float: right;
 }
 
+.main-footer {
+    font-size: 16px;
+}
+
 .search-text {
     color: #63002E;
 }
@@ -80,4 +78,108 @@ footer {
 
 .custom-search-container > label {
     margin-right: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.node-timestamp-info {
+    text-align: center;
+    font-weight: bold;
+}
+
+.container {
+    width: 100% !important;
+}
+
+/************************************************************************************
+DATATABLE BUTTONS AND SELECT
+************************************************************************************/
+
+/* überschrieben von buttons.dataTables.min.css */
+a.dt-button {
+    color: #FFFFFF !important;
+    background-color: #c1005a !important;
+    background-image: none !important;
+    border: none !important;
+}
+
+/* überschrieben von buttons.dataTables.min.css */
+a.dt-button:hover {
+    color: #ffffff !important;
+    background-color: #DC0067 !important;
+    border-color: #aa004c !important;
+}
+
+.dt-buttons {
+    position: relative !important;
+    float: right !important;
+    margin: 10px 0px !important;
+}
+
+#nodesTableStatistic.dataTable tbody tr.selected {
+    background-color: #68002d !important;
+}
+
+.select-info:before {
+    content: ' (';
+} 
+
+.select-info:after {
+    content: ')';
+} 
+
+/************************************************************************************
+AdminLTE Top Nav Dropdown
+************************************************************************************/
+.skin-purple-light .main-header .navbar {
+    background-color: #82003a !important;
+    margin-bottom: 20px;
+}
+
+.dropdown-menu {
+    background-color: #82003A !important;
+    border-color: #82003A !important;
+}
+
+.dropdown-menu>li>a:hover {
+    background-color: #c1005a !important;
+}
+
+.dropdown-menu>li>a {
+    color: #f9f9f9 !important;
+}
+
+
+/************************************************************************************
+Media Queries
+************************************************************************************/
+
+
+@media (max-width: 350px) {
+    .navbar-brand {
+        font-size: 16px !important;
+    }
+}
+
+@media (max-width: 460px) {
+    .navbar-header,
+    .navbar-collapse,
+    .main-footer > .container > .pull-right,
+    .main-footer > .container > .pull-left 
+    {
+        width: 100% !important;
+        float: none !important;
+    }
+    
+    .main-footer > .container > .pull-right,
+    .main-footer > .container > .pull-left 
+    {
+        text-align: center;
+    }
+    
+    .navbar-custom-menu {
+        display: none !important;
+    }
 }
