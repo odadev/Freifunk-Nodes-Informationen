@@ -29,13 +29,14 @@
         <link rel="stylesheet" href="css/buttons.dataTables.min.css" />
         <link rel="stylesheet" href="css/c3.min.css" />
         <link rel="stylesheet" href="css/own.css" />
+        <link rel="stylesheet" href="css/select2.min.css">
         
         <?php
         if($url == "statistic-node-clients") {
             echo '<link rel="stylesheet" href="css/node_statistics.css" />';
         }
         ?>
-        
+
         <script type="text/javascript" src="js/jquery2.min.js"></script>
         <script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js/dataTables.bootstrap.min.js"></script>
@@ -43,7 +44,7 @@
         <script type="text/javascript" src="js/dataTables.numericComma.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/app.min.js"></script>
-        
+
         <script type="text/javascript" src="js/dataTables.buttons.min.js"></script>
         <script type="text/javascript" src="js/buttons.print.min.js"></script>
         <script type="text/javascript" src="js/jszip.min.js"></script>
@@ -51,7 +52,8 @@
         <script type="text/javascript" src="js/dataTables.select.min.js"></script>
         <script type="text/javascript" src="js/moment-with-locales.js"></script>
         <script type="text/javascript" src="js/datetime-moment.js"></script>
-        
+        <script type="text/javascript" src="js/select2.full.min.js"></script>
+
         <script type="text/javascript" src="js/d3js/d3.min.js"></script>
         <script type="text/javascript" src="js/c3js/c3.min.js"></script>
     </head>
@@ -74,7 +76,7 @@
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="index.php?url=statistic-offline">Länger als 3 Tage offline</a></li>
                             <li><a href="index.php?url=statistic-offline&showAll=true">Länger als 3 Tage offline - Alle</a></li>
-                            <!--<li><a href="index.php?url=statistic-node-clients">Node - Clientstatistik</a></li>-->
+                            <li><a href="index.php?url=statistic-node-clients">Node - Clientstatistik</a></li>
                         </ul>
                       </li>
                     </ul>
