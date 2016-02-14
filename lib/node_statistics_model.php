@@ -115,6 +115,17 @@ class Node_Statistics_Model {
                     ID DESC, 
                     HOSTNAME ASC;
     ";
+
+    /**
+     * Query zum herausholen aller Nodes
+     */
+    private static $query_getNodes = "
+            SELECT
+                    ID,
+                    HOSTNAME
+            FROM
+                    node
+    ";
     
     /**
      * Statement zum Herausholen der Anzahl an Clients und den Onlinestatus aus der DB
@@ -132,11 +143,16 @@ class Node_Statistics_Model {
      */
     private $stmt_getNodeHostnameByID;
     
-    /*
+    /**
      * Statement für die Liste mit allen Nodes, die seit n Stunden nicht mehr online waren
      */
     private $stmt_getOfflineNodesNHours;
-    
+
+    /**
+     * Statement das Herausholen aller Nodes
+     */
+    private $stmt_getNodes;
+
     function __construct() {
         $this->db = Database::getInstance();
        
@@ -144,6 +160,7 @@ class Node_Statistics_Model {
         $this->stmt_getNodeClientinformationOneDay = $this->db->prepare(self::$query_getNodeClientinformationOneDay);
         $this->stmt_getNodeHostnameByID = $this->db->prepare(self::$query_getNodeHostnameByID);
         $this->stmt_getOfflineNodesNHours = $this->db->prepare(self::$query_getOfflineNodesNHours);
+        $this->stmt_getNodes = $this->db->prepare(self::$query_getNodes);
     }
     
     /**
@@ -200,5 +217,15 @@ class Node_Statistics_Model {
         
         $this->stmt_getOfflineNodesNHours->execute();
         return $this->stmt_getOfflineNodesNHours->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Gibt alle Nodes zurück (im Moment nur ID und Hostname)
+     *
+     * @return mixed
+     */
+    function getNodes() {
+        $this->stmt_getNodes->execute();
+        return $this->stmt_getNodes->fetchAll(PDO::FETCH_ASSOC);
     }
 }
