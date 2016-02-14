@@ -15,9 +15,11 @@
                 <a class="toggle-vis" data-column="3">Uptime</a> - 
                 <a class="toggle-vis" data-column="4">Modell</a> - 
                 <a class="toggle-vis" data-column="5">IPv6</a> - 
-                <a class="toggle-vis" data-column="6">Node auf Map</a> - 
-                <a class="toggle-vis" data-column="7">Speicherauslastung</a> - 
-                <a class="toggle-vis" data-column="8">Load AVG</a>
+                <a class="toggle-vis" data-column="6">Node auf Map</a> -
+                <a class="toggle-vis" data-column="7">Firmware Base</a> -
+                <a class="toggle-vis" data-column="8">Firmware Release</a> -
+                <a class="toggle-vis" data-column="9">Speicherauslastung</a> -
+                <a class="toggle-vis" data-column="10">Load AVG</a>
             </div>
 
             <!-- Container für die Suche -->
@@ -37,6 +39,8 @@
                         <th class="text-center">Modell</th>
                         <th class="text-center">IPv6-Adresse</th>
                         <th class="text-center">Node auf Map</th>
+                        <th class="text-center">Firmware</br>Base</th>
+                        <th class="text-center">Firmware</br>Release</th>
                         <th class="text-center">Speicherauslastung</th>
                         <th class="text-center">Load AVG</th>
                     </tr>
@@ -51,6 +55,8 @@
                         <th class="text-center">Modell</th>
                         <th class="text-center">IPv6</th>
                         <th class="text-center">Node auf Map</th>
+                        <th class="text-center">Firmware</br>Base</th>
+                        <th class="text-center">Firmware</br>Release</th>
                         <th class="text-center">Speicherauslastung</th>
                         <th class="text-center">Load AVG</th>
                     </tr>
@@ -83,6 +89,8 @@
                                     echo "<a target='_blank' href='http://[" . $ipv6 . "]'>" . $ipv6 . "</a><br />";;
                                 echo "</td>";
                                 echo "<td class='text-center'><a target='_blank' href='http://map.freifunk-moers.de/#!n:" . $node->getNodeID() . "'>" . $node->getNodeID() . "</a></td>";
+                                echo "<td class='text-center'>" . $node->getFirmware()['base'] . "</td>";
+                                echo "<td class='text-center'>" . $node->getFirmware()['release'] . "</td>";
                                 echo "<td class='text-center'>" . number_format($node->getMemoryUsage(), 3) . "</td>";
                                 echo "<td class='text-center'>" . $node->getLoadavg() . "</td>";
                             echo "</tr>";
