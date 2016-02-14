@@ -43,7 +43,7 @@ body {
 .text-strong {
     font-weight: bold;
 }
-#chart {
+#chart-statistic-node {
     width: 99%; 
     height: 65vh;
     margin-bottom: 100px;
@@ -58,8 +58,12 @@ body {
     cursor: pointer;
 }
 
+#chart-statistic-node .c3-line {
+    stroke-width: 2px;
+}
+
 @media screen and (max-width: 690px) {
-    #chart {
+    #chart-statistic-node {
         height: 100vh;
         width: 96%;
     }
@@ -83,6 +87,11 @@ body {
     
     .right {
         float: none;
+    }
+
+    #help-icon {
+        text-align: center;
+        margin-bottom: 20px;
     }
     
     .chart-info {
