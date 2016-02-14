@@ -23,12 +23,11 @@
 }
 
 .box.box-freifunk-default {
-    border-top-color: #dc0067 !important;
-    border: 1px solid #dc0067;
+    border: 1px solid #dc0067 !important;
 }
 
 .box.box-solid.box-freifunk-default > .box-header {
-    background: #dc0067 none repeat scroll 0% 0%;
+    background: #dc0067 none repeat scroll 0 0;
     color: #FFFFFF;
 }
 
@@ -48,7 +47,7 @@
 
 .icon-online,
 .icon-offline {
-    text-shadow: 0px 0px 1px rgba(0, 0, 0, 1);
+    text-shadow: 0 0 1px rgba(0, 0, 0, 1);
 }
 
 .icon-online {
@@ -93,6 +92,26 @@
     width: 100% !important;
 }
 
+.center-container {
+    margin: 0 auto;
+    float: none !important;
+}
+
+.btn-primary {
+    background-color: #82003a !important;
+    border-color: #82003a !important;
+}
+
+a:hover,
+a:active,
+a:focus {
+    color: #dc0067;
+}
+
+a {
+    color: #82003a;
+}
+
 /************************************************************************************
 DATATABLE BUTTONS AND SELECT
 ************************************************************************************/
@@ -115,7 +134,7 @@ a.dt-button:hover {
 .dt-buttons {
     position: relative !important;
     float: right !important;
-    margin: 10px 0px !important;
+    margin: 10px 0 !important;
 }
 
 #nodesTableStatistic.dataTable tbody tr.selected {
