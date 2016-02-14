@@ -49,6 +49,15 @@ body {
     margin-bottom: 100px;
 }
 
+#help-icon {
+    color: #0d6aad;
+}
+
+#help-icon:hover {
+    color: #0d6aad;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 690px) {
     #chart {
         height: 100vh;
