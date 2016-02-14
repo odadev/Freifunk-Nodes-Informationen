@@ -147,7 +147,11 @@ a.dt-button:hover {
 
 .select-info:after {
     content: ')';
-} 
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 22px !important;
+}
 
 /************************************************************************************
 AdminLTE Top Nav Dropdown
