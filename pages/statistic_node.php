@@ -1,16 +1,210 @@
 <section class="content">
-    <div class="row">
-        <?php   
-            $nodeID = htmlspecialchars($_GET['nodeID']);
+    <?php
+    $nodeID = htmlspecialchars($_GET['nodeID']);
 
-            // Kleine Überprüfung ob Variable gesendet und nodeID die richtige Länge.
-            if(empty($nodeID) || strlen($nodeID) != 12) {
-                echo "<div>Es wurde kein oder kein gültiger Node ausgewählt!</div>";
-                die(); 
-            }
-            
+    /*
+     * Kleine Überprüfung ob Variable gesendet und nodeID die richtige Länge.
+     *
+     * todo: Auswahl eines Nodes anhand des Hostnames (eventuell Handeingabe + Vorschläge)
+    */
+    if(empty($nodeID) || strlen($nodeID) != 12) {
+        echo "<div class='row'>Es wurde kein oder kein gültiger Node ausgewählt!</div>";
+        die();
+    }
+
+    /*
+     * Prüfen ob eine Anzahl an Tagen eingegeben wurde.
+     *
+     * Wenn ja, dann den Text und die Anzahl der Stunden entsprechend setzen.
+     */
+    if (isset($_GET['days']) && is_numeric($_GET['days'])) {
+        $hours = htmlspecialchars($_GET['days'])  * 24;
+        $hoursOrDaysText = "Tage";
+    } else {
+        $hours = 8760; // 1 Jahr
+        $hoursOrDaysText = "Stunden";
+    }
+
+    ?>
+    <!-- Help Modal -->
+    <div class="modal fade" id="statisticNodeHelpModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Informationen / Hilfe</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box-group" id="statisticNodeHelpModalAccordion">
+                        <!-- 0 -->
+                        <div class="panel box-primary">
+                            <div class="box-header">
+                                <h4 class="box-title">
+                                    <a data-toggle="collapse" data-parent="statisticNodeHelpModalAccordion" href="#statisticNodeHelpModalAccordion_0" aria-expanded="false">
+                                        Alllgemeines
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="statisticNodeHelpModalAccordion_0" class="panel-collapse collapse" aria-expanded="false">
+                                <div class="box-body">
+                                    Wenn mehr als 90 Tage ausgewählt werden, werden die Daten automatisch als
+                                    Tageswerte herausgeholt, da sonst zu vele Werte angezeigt werden würden, die den Client durchaus sehr belasten könnten
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 1 -->
+                        <div class="panel box-primary">
+                            <div class="box-header">
+                                <h4 class="box-title">
+                                    <a data-toggle="collapse" data-parent="statisticNodeHelpModalAccordion" href="#statisticNodeHelpModalAccordion_1" aria-expanded="false">
+                                        Anzahl Werte (Stunden / Tage)
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="statisticNodeHelpModalAccordion_1" class="panel-collapse collapse" aria-expanded="false">
+                                <div class="box-body">
+                                    <strong>Konkret:</strong><br />
+                                    Die Anzahl der Werte, die in einem gewissen Zeitraum vorhanden sind.
+
+                                    <br /><br />
+                                    <strong>Beschreibung:</strong>
+                                    Dieser Wert gibt an, wie viele einzelne Werte in einem Zeitraum (gesamt oder selbst ausgewählt) vorhanden sind.<br />
+                                    Wenn man beispielsweise die Werte von 20 Tagen haben möchte, aber nicht 480h sondern weniger angezeigt werden, dann liegt es daran,
+                                    dass zwischendurch Werte fehlen.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2 -->
+                        <div class="panel box-primary">
+                            <div class="box-header">
+                                <h4 class="box-title">
+                                    <a data-toggle="collapse" data-parent="statisticNodeHelpModalAccordion" href="#statisticNodeHelpModalAccordion_2" aria-expanded="false">
+                                        &#216; Clients (gesamt)
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="statisticNodeHelpModalAccordion_2" class="panel-collapse collapse" aria-expanded="false">
+                                <div class="box-body">
+                                    Anzahl der durchschnittlichen Clients über den gesamten Zeitraum.<br /><br />
+                                    Dieser Wert kann - auch wenn der ausgewählte Zeitraum einen Tag betrifft - vom "Durchschnitt letzte 24 Stunden" abweichen, da es mehr oder weniger Werte als 24 sein können.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3 -->
+                        <div class="panel box-primary">
+                            <div class="box-header">
+                                <h4 class="box-title">
+                                    <a data-toggle="collapse" data-parent="statisticNodeHelpModalAccordion" href="#statisticNodeHelpModalAccordion_3" aria-expanded="false">
+                                        Maximum Clients (gesamt)
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="statisticNodeHelpModalAccordion_3" class="panel-collapse collapse" aria-expanded="false">
+                                <div class="box-body">
+                                    Maximale Anzahl der Clients über den gesamten Zeitraum.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4 -->
+                        <div class="panel box-primary">
+                            <div class="box-header">
+                                <h4 class="box-title">
+                                    <a data-toggle="collapse" data-parent="statisticNodeHelpModalAccordion" href="#statisticNodeHelpModalAccordion_4" aria-expanded="false">
+                                        &#216; Clients (letzte 24 Stunden)
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="statisticNodeHelpModalAccordion_4" class="panel-collapse collapse" aria-expanded="false">
+                                <div class="box-body">
+                                    Anzahl der durchschnittlichen Clients in den letzten 24 Stunden.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5 -->
+                        <div class="panel box-primary">
+                            <div class="box-header">
+                                <h4 class="box-title">
+                                    <a data-toggle="collapse" data-parent="statisticNodeHelpModalAccordion" href="#statisticNodeHelpModalAccordion_5" aria-expanded="false">
+                                        Startdatum
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="statisticNodeHelpModalAccordion_5" class="panel-collapse collapse" aria-expanded="false">
+                                <div class="box-body">
+                                    Datum und Uhrzeit des ersten Wertes im ausgewählten Zeitraum.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 6 -->
+                        <div class="panel box-primary">
+                            <div class="box-header">
+                                <h4 class="box-title">
+                                    <a data-toggle="collapse" data-parent="statisticNodeHelpModalAccordion" href="#statisticNodeHelpModalAccordion_6" aria-expanded="false">
+                                        Enddatum
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="statisticNodeHelpModalAccordion_6" class="panel-collapse collapse" aria-expanded="false">
+                                <div class="box-body">
+                                    Datum und Uhrzeit des letzten Wertes im ausgewählten Zeitraum. Im Normalfall ist dies der aktuelle Tag und die aktuelle Stunde.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 7 -->
+                        <div class="panel box-primary">
+                            <div class="box-header">
+                                <h4 class="box-title">
+                                    <a data-toggle="collapse" data-parent="statisticNodeHelpModalAccordion" href="#statisticNodeHelpModalAccordion_7" aria-expanded="false">
+                                        Tage
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="statisticNodeHelpModalAccordion_7" class="panel-collapse collapse" aria-expanded="false">
+                                <div class="box-body">
+                                    Anzahl der Werte / 24 = Tage. Dient als kleine Hilfe, wenn beispielsweise kein Zeitraum ausgewählt wurde.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Schließen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formular zum Auswählen der Anzahl der Tage -->
+    <div class="row text-center">
+        <div id="help-icon" class="right">
+            <i data-toggle="modal" data-target="#statisticNodeHelpModal" class="fa fa-info-circle fa-2x"></i>
+        </div>
+        <div class="col-lg-1 center-container">
+            <form action="index.php" method="get">
+                <input type="hidden" name="url" value="statistic-node-clients" />
+                <input type="hidden" name="nodeID" value="<?php echo $nodeID; ?>" />
+                <div class="input-group input-group-sm">
+                    <input type="text" name="days" id="days" class="form-control" placeholder="Anzahl Tage"
+                           value="<?php if($hoursOrDaysText == "Tage") { echo $hours / 24; } ?>" required />
+                    <span class="input-group-btn">
+                        <input type="submit" value="GO" class="btn btn-default"/>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Diagramm -->
+    <div class="row">
+            <?php
             $nodeStatisticsModel = new Node_Statistics_Model();
-            $hours = 9999999;
             $node_statistics = $nodeStatisticsModel->getNodeClientInformationFromDB($nodeID, $hours);
             $node_hostname = $nodeStatisticsModel->getNodeHostnameByID($nodeID);
 
@@ -68,21 +262,28 @@
 
             echo "<h1>" . $node_hostname . " (" . $nodeID . ") - Clientstatistik</h1>";
         ?>
-        
         <div class='chart-info-box'>
             <div class='chart-info left'>
                 <div class='table'>
                     <div class='table-row'>
                         <div class='table-cell text-strong'>
-                            Anzahl Werte (Stunden):
+                            Anzahl Werte (Stunden / Tage): &nbsp;&nbsp;&nbsp;&nbsp;
                         </div>
                         <div class='table-cell'>
-                            <?php echo $count_values; ?>
+                            <?php
+                            if($hours > 2160) {
+                                $days = $count_values;
+                                echo ($count_values * 24) . " / " . $days;
+                            } else {
+                                $days = round($count_values / 24, 2);
+                                echo $count_values . " / " . $days;
+                            }
+                            ?>
                         </div>
                     </div>
                     <div class='table-row'>
                         <div class='table-cell text-strong'>
-                            Durchschnitt Clients (gesamt):
+                            &#216; Clients (gesamt):
                         </div>
                         <div class='table-cell'>
                             <?php echo round(array_sum($infos_clients_values_total) / count($infos_clients_values_total), 2); ?>
@@ -93,12 +294,12 @@
                             Maximum Clients (gesamt):
                         </div>
                         <div class='table-cell'>
-                            <?php echo max($infos_clients_max_total) . " (AVG: " . round(array_sum($infos_clients_max_total) / count($infos_clients_max_total), 2) . ")"; ?>
+                            <?php echo max($infos_clients_max_total) . " (&#216; " . round(array_sum($infos_clients_max_total) / count($infos_clients_max_total), 2) . ")"; ?>
                         </div>
                     </div>
                     <div class='table-row'>
                         <div class='table-cell text-strong'>
-                            Durchschnitt Clients (letzte 24 Stunden): &nbsp;&nbsp;&nbsp;&nbsp
+                            &#216; Clients (letzte 24 Stunden): &nbsp;&nbsp;&nbsp;&nbsp
                         </div>
                         <div class='table-cell'>
                             <?php echo $lasthour_clients_avg_value; ?>
@@ -127,10 +328,17 @@
                         </div>
                         <div class='table-row'>
                             <div class='table-cell text-strong'>
-                                Tage (anz. Stunden / 24): &nbsp;&nbsp;&nbsp;&nbsp;
+                                Tage
+                                <?php
+                                if($hoursOrDaysText == "Stunden") {
+                                    echo "(anz. Stunden / 24): &nbsp;&nbsp;&nbsp;&nbsp;";
+                                } else {
+                                    echo ": &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+                                }
+                                ?>
                             </div>
                             <div class='table-cell'>
-                                <?php echo round(count($infos_clients_values_total) / 24, 2); ?>
+                                <?php echo $days; ?>
                             </div>
                         </div>
                 </div>
@@ -150,14 +358,14 @@
             ['Mininum Clients', <?php echo $infos_clients_min; ?>]
           ],
            types: {
-                'Maximum Clients': 'line',
-                'Durchschnitt Clients': 'line',
-                'Mininum Clients': 'line'
+                'Maximum Clients': 'step',
+                'Durchschnitt Clients': 'step',
+                'Mininum Clients': 'step'
             },
             colors: {
-                'Maximum Clients': '#8BB78F', //'#00aa00',
+                'Maximum Clients': '#8BB78F',
                 'Durchschnitt Clients': '#000',
-                'Mininum Clients': '#BA7E7E', //#dd0000'
+                'Mininum Clients': '#BA7E7E'
             }
         },
         zoom: {
@@ -168,13 +376,13 @@
         },
         axis: {
             x: {
-                // Zeigt immer die letzten 48 Stunden in groß an im oberen Chart
-                extent: [<?php echo $count_values - 48; ?>, <?php echo $count_values; ?>],
+                // Zeigt immer die letzten 24 Stunden in groß an im oberen Chart
+                extent: [<?php echo $count_values - 24; ?>, <?php echo $count_values; ?>],
                 type: 'category',
                 categories: [<?php echo $infos_clients_x_axis; ?>],
                 tick: {
-                    count: 25,
-                    width: 60
+                    fit: false,
+                    width: 50
                 },
                 height: 60
             },
