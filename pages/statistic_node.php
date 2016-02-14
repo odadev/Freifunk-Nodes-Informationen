@@ -1,15 +1,15 @@
 <section class="content">
     <?php
     $nodeID = htmlspecialchars($_GET['nodeID']);
+    $nodeStatisticsModel = new Node_Statistics_Model();
 
     /*
      * Kleine Überprüfung ob Variable gesendet und nodeID die richtige Länge.
      *
-     * todo: Auswahl eines Nodes anhand des Hostnames (eventuell Handeingabe + Vorschläge)
+     * Wenn keine nodeID übergeben würde, oder die Länge falsch ist, dann wird eine zufällige nodeID genommen
     */
     if(empty($nodeID) || strlen($nodeID) != 12) {
-        echo "<div class='row'>Es wurde kein oder kein gültiger Node ausgewählt!</div>";
-        die();
+        $nodeID = $nodeStatisticsModel->getNodes()[array_rand($nodeStatisticsModel->getNodes())]['ID'];
     }
 
     /*
@@ -21,10 +21,9 @@
         $hours = htmlspecialchars($_GET['days'])  * 24;
         $hoursOrDaysText = "Tage";
     } else {
-        $hours = 8760; // 1 Jahr
+        $hours = 2160; // 3 Monate (90 Tage)
         $hoursOrDaysText = "Stunden";
     }
-
     ?>
     <!-- Help Modal -->
     <div class="modal fade" id="statisticNodeHelpModal" tabindex="-1" role="dialog">
@@ -182,11 +181,30 @@
     </div>
 
     <!-- Formular zum Auswählen der Anzahl der Tage -->
-    <div class="row text-center">
+    <div class="row">
         <div id="help-icon" class="right">
             <i data-toggle="modal" data-target="#statisticNodeHelpModal" class="fa fa-info-circle fa-2x"></i>
         </div>
-        <div class="col-lg-1 center-container">
+        <div class="col-lg-2">
+            <div class="form-group">
+                <form action="index.php" method="get">
+                    <input type="hidden" name="url" value="statistic-node-clients" />
+                    <input type="hidden" name="days" value="<?php echo ($hours / 24);?>" />
+                    <select id="nodeID" name="nodeID" class="form-control select2" onchange="this.form.submit();">
+                        <?php
+                            foreach($nodeStatisticsModel->getNodes() as $nodeStatistic) {
+                                echo "<option value='" . $nodeStatistic['ID'] . "'";
+                                if($nodeID == $nodeStatistic['ID']) {
+                                    echo " selected='selected'";
+                                }
+                                echo ">" . $nodeStatistic['HOSTNAME'] . "</option>";
+                            }
+                        ?>
+                    </select>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-1">
             <form action="index.php" method="get">
                 <input type="hidden" name="url" value="statistic-node-clients" />
                 <input type="hidden" name="nodeID" value="<?php echo $nodeID; ?>" />
@@ -204,7 +222,6 @@
     <!-- Diagramm -->
     <div class="row">
             <?php
-            $nodeStatisticsModel = new Node_Statistics_Model();
             $node_statistics = $nodeStatisticsModel->getNodeClientInformationFromDB($nodeID, $hours);
             $node_hostname = $nodeStatisticsModel->getNodeHostnameByID($nodeID);
 
@@ -345,12 +362,14 @@
             </div>
         </div>
         
-        <div id="chart"></div>
+        <div id="chart-statistic-node"></div>
     </div>
 </section>
 <script>
+    $("#nodeID").select2();
+
     var chart = c3.generate({
-        bindto: '#chart',
+        bindto: '#chart-statistic-node',
         data: {
           columns: [
             ['Maximum Clients', <?php echo $infos_clients_max; ?>],
