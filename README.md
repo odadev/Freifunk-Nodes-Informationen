@@ -13,7 +13,12 @@ Außerdem soll in Zukunft die Ermittlung von weiteren Informationen möglich sei
 * ...
 
 ## Aktueller Stand
-* **Bisher ist es nur eine bessere Darstellung der nodes.json**
+### Clientstatistik
+* wenn kein Node ausgewählt wurde (jetzt auch Link im Menü unter Statistiken), dann wird einfach ein zufälliger ausgewählt (aus Spaß :D)
+* Möglichkeit über einen Dropdown (+ Handeingabe) einen Node auszuwählen, damit man nicht immer hin und her wechseln muss. Bei Änderung wird die Seite aktualisiert
+* man kann die Anzahl der Tage, die man zurückblicken möchte, eingeben. Das ist allerdings ein extra Formular. Bei Eingabe und Druck auf "GO", wird nur dieses Formular abgesendet.
+
+### Allgemein
 * **12.02.2016** Menü eingebaut, die Struktur verbessert und unsinnige Dateien gelöscht
 * **12.02.2016** Neue Statistik: Anzeige aller Nodes, die länger als 3 Tage offline sind
 * **12.02.2016** Clientstatistik angepasst: wenn mehr als 3 Monate an Daten geladen werden soll, dann hole einen tagesbasierten- und keinen stundenbasierten Wert mehr
@@ -33,6 +38,13 @@ Außerdem soll in Zukunft die Ermittlung von weiteren Informationen möglich sei
  * Zusätzlich werden noch einige Werte angezeigt - kann natürlich noch bearbeitet werden. Es handelt sich hierbei erst einmal nur um Beispiele (mit echten Daten)
 
 ## TODO
+### Clientstatisttik
+* Verhalten des Help-Icon für das Öffnen des Modals bei kleineren Displayauflösungen (> 680px) noch nicht gut
+* Auswahl eines Zeitraumes, der dargestellt werden soll
+* Auswahl von bestimmten Uhrzeiten oder Wochentagen, die dargestellt werden sollen
+ * so kann geschaut werden, ob zu einer gewissen Zeit immer so viel (oder wenig) los ist und prüfen, ob man den/die Node/s etwas entlasten kann
+
+### Allgemein
 * Diese Anwendung soll für sämtliche Communities laufen - also mit verschiedenen JSON-Dateien
  * ~~Eventuell sämtliche Communities in die Datenbank mit Name und Link zu JSON eintragen + Auswahlmöglichkeit geben um selber eine JSON per Link einzugeben~~
  * Allerdings würde das ein riiiiiiiesen Datenberg bedeuten, für den man selber zuständig ist. Somit sollte jede Community eine eigene Version aufsetzen
